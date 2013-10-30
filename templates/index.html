@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css" />
         <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/foundation/4.3.2/css/normalize.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="//cdn.jsdelivr.net/foundation/4.3.2/js/foundation.min.js"></script>
+        <script src="//cdn.jsdelivr.net/foundation/4.3.2/js/foundation/foundation.alerts.js"></script>
     </head>
     <body>
         <nav class="top-bar" role="navigation">
@@ -16,7 +18,10 @@
         <section class="main">
 {% with messages = get_flashed_messages() %}
     {% for message in messages %}
-      <div class="alert-box success">{{ message }}</div>
+      <div data-alert class="alert-box success">
+        {{ message }}
+        <a href="#" class="close" style="font-size:2em">&times;</a>
+      </div>
     {% endfor %}
 {% endwith %}
             <div class="row">
@@ -42,5 +47,6 @@
                 </div>
             </div>
         </section>
+        <script>$(document).foundation()</script>
     </body>
 </html>
