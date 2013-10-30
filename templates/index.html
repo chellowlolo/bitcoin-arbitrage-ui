@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Arbitrage Bot UI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css" />
+        <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/foundation/4.3.2/css/normalize.css" />
+        <script src="//cdn.jsdelivr.net/foundation/4.3.2/js/foundation.min.js"></script>
+    </head>
+    <body>
+        <nav class="top-bar" role="navigation">
+            <ul class="title-area">
+                <li class="name"><h1><a class="navbar-brand" href="#">Arbitrage Bot</a></h1></li>
+            </ul>
+        </nav>
+        <section class="main">
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+      <div class="alert-box success">{{ message }}</div>
+    {% endfor %}
+{% endwith %}
+            <div class="row">
+                <div class="large-10 columns">
+                    <h1 class="header">Settings</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-10 columns">
+                    <form method="post" action="/update" role="form">
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <label for="perc_thresh">Minimum profit %:</label>
+                                <input type="text" name="perc_thresh" id="perc_thresh" class="form-control" value="{{config.perc_thresh}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <input type="submit" class="button" value="Save">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
