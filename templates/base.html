@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Arbitrage Bot UI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css" />
+        <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/foundation/4.3.2/css/normalize.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/foundation/4.3.2/js/foundation.min.js"></script>
+        <script src="//cdn.jsdelivr.net/foundation/4.3.2/js/foundation/foundation.alerts.js"></script>
+        <style>fieldset { margin-bottom: 1em; }</style>
+    </head>
+    <body>
+        <nav class="top-bar" role="navigation">
+            <ul class="title-area">
+                <li class="name"><h1><a class="navbar-brand" href="#">Arbitrage Bot</a></h1></li>
+            </ul>
+            <section class="top-bar-section">
+                <ul class="right">
+                    <li><a href="/settings">Settings</a></li>
+                    <li><a href="/markets">Markets</a></li>
+                    <li><a href="/history">History</a></li>
+                    <li><a href="/feed">Live Feed</a></li>
+                </ul>
+            </section>
+        </nav>
+        <section class="main">
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+      <div data-alert class="alert-box success">
+        {{ message }}
+        <a href="#" class="close" style="font-size:2em">&times;</a>
+      </div>
+    {% endfor %}
+{% endwith %}
+            <div class="row">
+                <div class="large-10 columns">
+                    <h1>{% block heading %}{% endblock %}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-10 columns">
+                {% block content %}{% endblock %}
+                </div>
+            </div>
+        </section>
+        <script>$(document).foundation()</script>
+    </body>
+</html>
