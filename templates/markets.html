@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block heading %}Markets{% endblock %}
+
+{% block content %}
+<style>input[type=checkbox] {margin-left: 0.5em}</style>
+<form method="post" action="/markets" role="form">
+    <div class="row">
+        <div class="large-12 columns">
+            {% for market, currency_pairs in all_markets.items() %}
+            <div class="row">
+            <fieldset>
+                <legend>{{market}}</legend>
+                {% for currency_pair in currency_pairs %}
+                <div class="row">
+                    <label for="{{market}}_{{currency_pair.0}}_{{currency_pair.1}}">
+                        <input type="checkbox" name="markets" id="{{market}}_{{currency_pair.0}}_{{currency_pair.1}}" value="{{market}}_{{currency_pair.0}}_{{currency_pair.1}}" {% if currency_pair in markets.get(market, []) %}checked{% endif %}>
+                        {{currency_pair.0}}/{{currency_pair.1}}
+                    </label>
+                </div>
+                {% endfor %}
+            </fieldset>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <input type="submit" class="button button-primary" value="Save">
+        </div>
+    </div>
+</form>
+{% endblock %}

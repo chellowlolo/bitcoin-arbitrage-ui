@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block heading %}Settings{% endblock %}
+
+{% block content %}
+<form method="post" action="/settings" role="form">
+    <fieldset>
+        <legend>General</legend>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="pivot_currency">Base currency:</label>
+                <input type="text" name="pivot_currency" id="pivot_currency" class="form-control" value="{{config.pivot_currency}}">
+            </div>
+            <div class="large-12 columns">
+                <label for="profit_thresh">Minimum profit in base currency:</label>
+                <input type="text" name="profit_thresh" id="profit_thresh" class="form-control" value="{{config.profit_thresh}}">
+            </div>
+            <div class="large-12 columns">
+                <label for="perc_thresh">Minimum profit as a percentage:</label>
+                <input type="text" name="perc_thresh" id="perc_thresh" class="form-control" value="{{config.perc_thresh}}">
+            </div>
+            <div class="large-12 columns">
+                <label for="min_tx_volume">Minimum transaction volume in base currency:</label>
+                <input type="text" name="min_tx_volume" id="min_tx_volume" class="form-control" value="{{config.min_tx_volume}}">
+            </div>
+            <div class="large-12 columns">
+                <label for="max_tx_volume">Maximum transaction volume in base currency:</label>
+                <input type="text" name="max_tx_volume" id="max_tx_volume" class="form-control" value="{{config.max_tx_volume}}">
+            </div>
+            <div class="large-12 columns">
+                <label for="max_trade_path_length">Maximum trade path length:</label>
+                <input type="text" name="max_trade_path_length" id="max_trade_path_length" class="form-control" value="{{config.max_trade_path_length}}">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>BitcoinCentral</legend>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="bitcoincentral_username">Username</label>
+                <input type="text" name="bitcoincentral_username" id="bitcoincentral_username" class="form-control" value="{{config.bitcoincentral_username}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="bitcoincentral_password">Password</label>
+                <input type="password" name="bitcoincentral_password" id="bitcoincentral_password" class="form-control" value="{{config.bitcoincentral_password}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="bitcoincentral_address">Bitcoin Address</label>
+                <input type="text" name="bitcoincentral_address" id="bitcoincentral_address" class="form-control" value="{{config.bitcoincentral_address}}">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Bitstamp</legend>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="bitstamp_username">Username</label>
+                <input type="text" name="bitstamp_username" id="bitstamp_username" class="form-control" value="{{config.bitstamp_username}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="bitstamp_password">Password</label>
+                <input type="password" name="bitstamp_password" id="bitstamp_password" class="form-control" value="{{config.bitstamp_password}}">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Btce</legend>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="btce_api_key">API Key</label>
+                <input type="text" name="btce_api_key" id="btce_api_key" class="form-control" value="{{config.btce_api_key}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="btce_api_secret">API Secret</label>
+                <input type="text" name="btce_api_secret" id="btce_api_secret" class="form-control" value="{{config.btce_api_secret}}">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>MtGox</legend>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="mtgox_key">API Key</label>
+                <input type="text" name="mtgox_key" id="mtgox_key" class="form-control" value="{{config.mtgox_key}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="mtgox_secret">API Secret</label>
+                <input type="text" name="mtgox_secret" id="mtgox_secret" class="form-control" value="{{config.mtgox_secret}}">
+            </div>
+        </div>
+    </fieldset>
+    <div class="row">
+        <div class="large-12 columns">
+            <input type="submit" class="button" value="Save">
+        </div>
+    </div>
+</form>
+{% endblock %}

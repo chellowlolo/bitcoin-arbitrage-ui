@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block heading %}Live Feed{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/feed.css">
+<div class="row">
+    <div class="large-12 columns">
+        <h1 class="subheader">Opportunities</h1>
+        <div id="opportunities" class="logbox"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <h1 class="subheader">Trades Executed</h1>
+        <div id="traderbot" class="logbox"></div>
+    </div>
+</div>
+<script>
+function strTrade(trade) {
+    return trade.type + " " + trade.amount + " " + trade.amount_currency
+        + " at " + trade.price + " " + trade.price_currency + " on "
+        + trade.market_name;
+}
+
+var $opportunities = $("#opportunities");
+var $traderbot = $("#traderbot");
+var wsOpportunities = new WebSocket("ws://localhost:{{port}}/")
+var wsTraderBot = new WebSocket("ws://localhost:{{port}}/traderbot")
+
+wsOpportunities.onmessage = function(msg) {
+    var tradechain = JSON.parse(msg.data);
+    var html = "<div class='line'><span>" + tradechain.profit + " "
+        + tradechain.pivot_currency + " (" + tradechain.percentage + "%) profit"
+        + " via path:</span>";
+
+    for (i in tradechain.trades) {
+        console.log(trade);
+        var trade = tradechain.trades[i];
+        html += "<span class='trade'>" + strTrade(trade)
+            + "</span>";
+    }
+    html += "</div>";
+    $opportunities.append(html);
+}
+
+wsTraderBot.onmessage = function(msg) {
+    var trade = JSON.parse(msg.data);
+    $traderbot.append("<div class='line'><span class='" + trade.type
+        + "'>Placed order '" + strTrade(trade) + "'</span></div>"
+    );
+}
+</script>
+{% endblock %}
