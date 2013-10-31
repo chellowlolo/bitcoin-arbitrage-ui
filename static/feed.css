@@ -1,0 +1,23 @@
+.logbox {
+    height: 10em;
+    border: thin solid black;
+    overflow-y: scroll;
+    padding: 0px;
+}
+
+.logbox div.line {
+    padding: 5px;
+}
+
+.logbox div.line:nth-child(odd) {
+    background-color: #DDD;
+}
+
+.logbox span {
+    display: block;
+    margin: 5px;
+}
+
+.logbox span.trade {
+    margin-left: 1em;
+}
