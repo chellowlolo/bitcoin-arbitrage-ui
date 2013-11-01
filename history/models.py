@@ -1,14 +1,22 @@
 from app import db
 
-class TradeChain(db.Model):
+
+class DictAttrs(object):
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+
+class TradeChain(db.Model, DictAttrs):
     id = db.Column(db.Integer, primary_key = True)
     created_at = db.Column(db.DateTime, default = db.func.now())
     pivot_currency = db.Column(db.String(3))
     profit = db.Column(db.Float)
     percentage = db.Column(db.Float)
-    trades = db.relationship("Trade", backref="tradechain", lazy="dynamic")
 
-class Trade(db.Model):
+
+
+class Trade(db.Model, DictAttrs):
     id = db.Column(db.Integer, primary_key = True)
     created_at = db.Column(db.DateTime, default = db.func.now())
     price = db.Column(db.Float)
@@ -17,7 +25,8 @@ class Trade(db.Model):
     amount_currency = db.Column(db.String(3))
     type = db.Column(db.String(4))
     market_name = db.Column(db.String(20))
-    to_trade = db.relationship("Trade")
+    from_trade = db.relationship("Trade", backref="to_trade")
+    tradechain = db.relationship("TradeChain", backref="trades", lazy="dynamic")
 
     @property
     def to_volume(self):
@@ -39,9 +48,9 @@ class Trade(db.Model):
         return self.amount_currency if self.type == "sell" \
         else self.price_currency
 
-class ExecutedTradeChain(db.Model):
+class ExecutedTradeChain(db.Model, DictAttrs):
     id = db.Column(db.Integer, primary_key = True)
-    created_at = db.Colume(db.DateTime, default = db.func.now())
+    created_at = db.Column(db.DateTime, default = db.func.now())
     pivot_currency = db.Column(db.String(3))
     starting_market = db.Column(db.String(20))
     ending_market = db.Column(db.String(20))

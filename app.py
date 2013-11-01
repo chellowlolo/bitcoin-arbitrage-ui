@@ -44,4 +44,7 @@ def update_markets():
 
 
 if __name__ == "__main__":
+    import history
+    history.start_recording_websockets()
+
     app.run(debug=True) 
