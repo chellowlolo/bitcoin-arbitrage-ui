@@ -44,10 +44,18 @@ wsOpportunities.onmessage = function(msg) {
 }
 
 wsTraderBot.onmessage = function(msg) {
-    var trade = JSON.parse(msg.data);
-    $traderbot.append("<div class='line'><span class='" + trade.type
-        + "'>Placed order '" + strTrade(trade) + "'</span></div>"
-    );
+    var obj = JSON.parse(msg.data);
+    if ("trade" in obj) {
+        $traderbot.append("<div class='line'><span class='" + obj.trade.type
+            + "'>Placed order '" + strTrade(obj.trade) + "'</span></div>"
+        );
+    } else if ("tradechain" in obj) {
+        $traderbot.append("<div class='line'><span>Executed a "
+            + obj.tradechain.profit + " " + obj.tradechain.pivot_currency
+            + " (" + obj.tradechain.percentage + "% profit) "
+            + " trade path.</span>"
+        );
+    }
 }
 </script>
 {% endblock %}
