@@ -1,6 +1,6 @@
 import app, json, logging, threading
 from .models import TradeChain, Trade, ExecutedTradeChain
-from websocket import WebSocket
+from websocket import create_connection
 
 
 def record_opportunity_websocket(msg):
@@ -39,7 +39,7 @@ def record_traderbot_websocket(msg):
 
 
 def listen_to_opportunities_websocket():
-    ws = WebSocket("http://localhost:8888/")
+    ws = create_connection("ws://localhost:8888/")
     listen_for_opportunities = True
 
     while listen_for_opportunities:
@@ -52,7 +52,7 @@ def listen_to_opportunities_websocket():
 
 
 def listen_to_traderbot_websocket():
-    ws = WebSocket("http://localhost:8888/traderbot")
+    ws = create_connection("ws://localhost:8888/traderbot")
     listen_for_traderbot = True
 
     while listen_for_traderbot:
