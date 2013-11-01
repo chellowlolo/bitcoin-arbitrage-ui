@@ -39,29 +39,35 @@ def record_traderbot_websocket(msg):
 
 
 def listen_to_opportunities_websocket():
-    ws = create_connection("ws://localhost:8888/")
-    listen_for_opportunities = True
+    try:
+        ws = create_connection("ws://localhost:8888/")
+    except ConnectionRefusedError:
+        logging.error("[History] Could not init / websocket.")
+        return
 
-    while listen_for_opportunities:
+    while True:
         try:
             msg = ws.recv()
             record_opportunity_websocket(msg)
         except OSError:
-            logging.error("[History] Could not init / websocket.")
-            listen_for_opportunities = False
+            logging.error("[History] Fatal error reading socket: %s" % str(e))
+            return
 
 
 def listen_to_traderbot_websocket():
-    ws = create_connection("ws://localhost:8888/traderbot")
-    listen_for_traderbot = True
+    try:
+        ws = create_connection("ws://localhost:8888/traderbot")
+    except ConnectionRefusedError:
+        logging.error("[History] Could not init /traderbot websocket.")
+        return
 
-    while listen_for_traderbot:
+    while True:
         try:
             msg = ws.recv()
             record_traderbot_websocket(msg)
-        except OSError:
-            logging.error("[History] Could not init /traderbot websocket.")
-            listen_for_traderbot = False
+        except OSError as e:
+            logging.error("[History] Fatal error reading socket: %s" % str(e))
+            return
 
 
 def start_recording_websockets():
