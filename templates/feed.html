@@ -34,7 +34,6 @@ wsOpportunities.onmessage = function(msg) {
         + " via path:</span>";
 
     for (i in tradechain.trades) {
-        console.log(trade);
         var trade = tradechain.trades[i];
         html += "<span class='trade'>" + strTrade(trade)
             + "</span>";
