@@ -1,7 +1,7 @@
 import json, logging, threading
 from app import db
 from .models import TradeChain, Trade, ExecutedTradeChain
-from websocket import create_connection
+from websocket import create_connection, WebSocketConnectionClosedException
 
 
 def record_opportunity_websocket(msg):
@@ -47,15 +47,15 @@ def listen_to_opportunities_websocket():
     try:
         ws = create_connection("ws://localhost:8888/")
     except ConnectionRefusedError:
-        logging.error("[History] Could not init / websocket.")
+        logging.error("[History] Could not init '/' websocket.")
         return
 
     while True:
         try:
             msg = ws.recv()
             record_opportunity_websocket(msg)
-        except OSError:
-            logging.error("[History] Fatal error reading socket: %s" % str(e))
+        except WebSocketConnectionClosedException:
+            logging.error("[History] Lost connection to websocket '/'")
             return
 
 
@@ -63,15 +63,15 @@ def listen_to_traderbot_websocket():
     try:
         ws = create_connection("ws://localhost:8888/traderbot")
     except ConnectionRefusedError:
-        logging.error("[History] Could not init /traderbot websocket.")
+        logging.error("[History] Could not init '/traderbot' websocket.")
         return
 
     while True:
         try:
             msg = ws.recv()
             record_traderbot_websocket(msg)
-        except OSError as e:
-            logging.error("[History] Fatal error reading socket: %s" % str(e))
+        except WebSocketConnectionClosedException:
+            logging.error("[History] Lost connection to websocket '/traderbot'")
             return
 
 
