@@ -66,6 +66,8 @@ def history_download():
                 order.profit, order.percentage,
                 order.starting_market, order.ending_market
             )
+    elif request.form["type"] == "trades":
+        trades = history.models.ExecutedTrade.query.all()
 
     response = make_response(csv)
     response.headers["Content-Disposition"] = "attachment; filename=%s.csv" % (
