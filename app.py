@@ -7,6 +7,7 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/btc-arb-ui.db"
 db = SQLAlchemy(app)
 
+
 @app.route("/feed", methods=["GET"])
 def show_feed():
     return render_template("feed.html", port = 8888) 
@@ -43,8 +44,8 @@ def update_markets():
     return redirect("/markets")
 
 
-if __name__ == "__main__":
-    import history
-    history.start_recording_websockets()
+import history
 
+if __name__ == "__main__":
+    history.start_recording_websockets()
     app.run(debug=True) 

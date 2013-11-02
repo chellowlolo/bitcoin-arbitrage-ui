@@ -1,23 +1,28 @@
-import app, json, logging, threading
+import json, logging, threading
+from app import db
 from .models import TradeChain, Trade, ExecutedTradeChain
 from websocket import create_connection
 
 
 def record_opportunity_websocket(msg):
-    trade_dict = json.loads(msg)
-    chain = TradeChain(**kwargs)    
-    app.db.add(chain)
+    chain_dict = json.loads(msg)
+    chain = TradeChain(
+        pivot_currency = chain_dict["pivot_currency"],
+        profit = chain_dict["profit"],
+        percentage = chain_dict["percentage"]
+    ) 
+    db.session.add(chain)
     
     old_trade = None
 
-    for i in range(0, len(trade_dict.trades)):
-        trade = Trade(**trade_dict.trades[i])
+    for i in range(0, len(chain_dict["trades"])):
+        trade = Trade(**chain_dict["trades"][i])
         trade.tradechain = chain
         trade.from_trade = old_trade
         old_trade = trade
-        app.db.add(trade)
+        db.session.add(trade)
 
-    app.db.commit()
+    db.session.commit()
 
 
 def record_traderbot_websocket(msg):
@@ -34,8 +39,8 @@ def record_traderbot_websocket(msg):
         ending_market = obj_dict["trades"][-1]["market_name"]
     )
 
-    app.db.add(chain)
-    app.db.commit()
+    db.session.add(chain)
+    db.session.commit()
 
 
 def listen_to_opportunities_websocket():
