@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block heading %}Settings{% endblock %}
+
+{% block content %}
+<form method="post" action="/history" role="form">
+    <div class="row">
+        <div class="large-12 columns">
+            <input type="hidden" name="type" value="chains">
+            <input type="submit" class="button" value="Download">
+        </div>
+    </div>
+</form>
+{% endblock %}
