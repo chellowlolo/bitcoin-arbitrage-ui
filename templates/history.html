@@ -1,12 +1,32 @@
 {% extends 'base.html' %}
-{% block heading %}Settings{% endblock %}
+{% block heading %}History{% endblock %}
 
 {% block content %}
 <form method="post" action="/history" role="form">
     <div class="row">
         <div class="large-12 columns">
-            <input type="hidden" name="type" value="chains">
-            <input type="submit" class="button" value="Download">
+            <label for="type">Report Type</label>
+            <select id="type" name="type" class="form-control">
+                <option value="chain">Trade chains placed</option>
+                <option value="log">Raw log output</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label for="start_date">Start Date</label>
+            <input type="text" id="start_date" name="start_date">
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label for="end_date">End Date</label>
+            <input type="text" id="end_date" name="end_date">
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <input type="submit" class="button" value="Download Report">
         </div>
     </div>
 </form>

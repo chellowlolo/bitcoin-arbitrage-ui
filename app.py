@@ -1,4 +1,6 @@
 import config, markets
+
+from datetime import datetime
 from flask import Flask, flash, redirect, request, \
     render_template, make_response
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -54,9 +56,22 @@ def history_form():
 @app.route("/history", methods=["POST"])
 def history_download():
     csv = ""
+    start_date = datetime.min
+    end_date = datetime.max
+    date_format = '%Y-%m-%d'
+
+    if "start_date" in request.form \
+    and request.form["start_date"].strip() != "":
+        start_date = datetime.strptime(request.form["start_date"], date_format)
+
+    if "end_date" in request.form \
+    and request.form["end_date"].strip() != "":
+        end_date = datetime.strptime(request.form["end_date"], date_format)
 
     if request.form["type"] == "chains":
-        orders = history.models.ExecutedTradeChain.query.all()
+        orders = history.models.TradeChain.query.filter(
+            history.models.TradeChain.created_at.between(start_date, end_date)
+        ).all()
         csv = "Timestamp,Currency,Profit,Profit (%),"\
             + "Starting Market,Ending Market\r\n"
     
@@ -66,8 +81,14 @@ def history_download():
                 order.profit, order.percentage,
                 order.starting_market, order.ending_market
             )
-    elif request.form["type"] == "trades":
-        trades = history.models.ExecutedTrade.query.all()
+    elif request.form["type"] == "log":
+        log = history.models.Log.query.filter(
+            history.models.Log.created_at.between(start_date, end_date)
+        ).all()
+        csv = "Timestamp,Message\r\n"
+
+        for line in log:
+            csv += "%s,%s\r\n" % (line.created_at, line.message)
 
     response = make_response(csv)
     response.headers["Content-Disposition"] = "attachment; filename=%s.csv" % (

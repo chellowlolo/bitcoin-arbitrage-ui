@@ -23,6 +23,9 @@ def update(new_config):
         f.write(json.dumps(config))
 
 def get():
-    with open(path_to_config, "r") as f:
-        config = json.loads(f.read())
-    return config
+    try:
+        with open(path_to_config, "r") as f:
+            config = json.loads(f.read())
+        return config
+    except FileNotFoundError:
+        return {}
