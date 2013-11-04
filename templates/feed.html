@@ -40,6 +40,7 @@ wsOpportunities.onmessage = function(msg) {
     }
     html += "</div>";
     $opportunities.append(html);
+    $opportunities.scrollTop($opportunities[0].scrollHeight);
 }
 
 wsTraderBot.onmessage = function(msg) {
@@ -55,6 +56,7 @@ wsTraderBot.onmessage = function(msg) {
             + " trade path.</span>"
         );
     }
+    $traderbot.scrollTop($traderbot[0].scrollHeight);
 }
 </script>
 {% endblock %}
