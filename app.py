@@ -7,7 +7,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/btc-arb-ui.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///btc-arb-ui.db"
 db = SQLAlchemy(app)
 
 # The history module depends on the db variable defined above.
@@ -18,6 +18,7 @@ import history
 def show_feed():
     return render_template("feed.html", port = 8888) 
 
+@app.route("/", methods=["GET"])
 @app.route("/settings", methods=["GET"])
 def show_settings():
     return render_template("settings.html", config = config.get())
