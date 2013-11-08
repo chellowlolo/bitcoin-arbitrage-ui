@@ -60,3 +60,5 @@ class Trade(DictAttrs, db.Model):
     def from_currency(self):
         return self.amount_currency if self.type == "sell" \
         else self.price_currency
+
+db.create_all()
