@@ -6,7 +6,7 @@ from flask import Flask, flash, redirect, request, \
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+app.secret_key = config.get()["secret_key"]
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///btc-arb-ui.db"
 db = SQLAlchemy(app)
 
