@@ -1,6 +1,7 @@
 import json
+from get_program_dir import get_program_dir
 
-path_to_config = "../bitcoin-arbitrage/arbitrage/config.json"
+path_to_config = get_program_dir() + "/../bitcoin-arbitrage/arbitrage/config.json"
 
 def update(new_config):
     with open(path_to_config, "r") as f:
