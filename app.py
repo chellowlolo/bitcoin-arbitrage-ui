@@ -28,7 +28,10 @@ def show_settings():
 
 @app.route("/settings", methods=["POST"])
 def update_settings():
-    config.update(request.form.to_dict())
+    new_config = request.form.to_dict()
+    new_config["traderbot_markets"] = request.form.getlist("traderbot_markets")
+    config.update(new_config)
+
     flash("Updated bot settings.")
 
     return redirect("/settings")

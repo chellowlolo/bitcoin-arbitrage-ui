@@ -52,6 +52,11 @@
                 <input type="text" name="bitcoincentral_address" id="bitcoincentral_address" class="form-control" value="{{config.bitcoincentral_address}}">
             </div>
         </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="bitcoincentral_autotrade"><input type="checkbox" {% if "BitcoinCentral" in config.traderbot_markets %}checked{% endif %} name="traderbot_markets" id="bitcoincentral_autotrade" value="BitcoinCentral"> Autotrade</label>
+            </div>
+        </div>
     </fieldset>
     <fieldset>
         <legend>Bitstamp</legend>
@@ -65,6 +70,11 @@
             <div class="large-12 columns">
                 <label for="bitstamp_password">Password</label>
                 <input type="password" name="bitstamp_password" id="bitstamp_password" class="form-control" value="{{config.bitstamp_password}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="bitstamp_autotrade"><input type="checkbox" {% if "Bitstamp" in config.traderbot_markets %}checked{% endif %} name="traderbot_markets" id="bitstamp_autotrade" value="Bitstamp"> Autotrade</label>
             </div>
         </div>
     </fieldset>
@@ -82,6 +92,11 @@
                 <input type="text" name="btce_api_secret" id="btce_api_secret" class="form-control" value="{{config.btce_api_secret}}">
             </div>
         </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="btce_autotrade"><input type="checkbox" {% if "Btce" in config.traderbot_markets %}checked{% endif %} name="traderbot_markets" id="btce_autotrade" value="Btce"> Autotrade</label>
+            </div>
+        </div>
     </fieldset>
     <fieldset>
         <legend>MtGox</legend>
@@ -95,6 +110,11 @@
             <div class="large-12 columns">
                 <label for="mtgox_secret">API Secret</label>
                 <input type="text" name="mtgox_secret" id="mtgox_secret" class="form-control" value="{{config.mtgox_secret}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="mtgox_autotrade"><input type="checkbox" {% if "MtGox" in config.traderbot_markets %}checked{% endif %} name="traderbot_markets" id="mtgox_autotrade" value="MtGox"> Autotrade</label>
             </div>
         </div>
     </fieldset>
