@@ -4,10 +4,13 @@ from datetime import datetime
 from flask import Flask, flash, redirect, request, \
     render_template, make_response
 from flask.ext.sqlalchemy import SQLAlchemy
+from get_program_dir import get_program_dir
 
 app = Flask(__name__)
 app.secret_key = config.get()["secret_key"]
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///btc-arb-ui.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s/btc-arb-ui.db" % (
+    get_program_dir()
+)
 db = SQLAlchemy(app)
 
 # The history module depends on the db variable defined above.
