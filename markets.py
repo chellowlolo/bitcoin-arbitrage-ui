@@ -23,9 +23,9 @@ ALL_MARKETS = {
     "Bitstamp": [
         ["BTC", "USD"]
     ],
-    "BitcoinCentral": [
-        ["BTC", "EUR"]
-    ],
+#    "BitcoinCentral": [
+#        ["BTC", "EUR"]
+#    ],
     "MtGox": [
         ["BTC", "USD"]
     ]
